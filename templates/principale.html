@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina Principale - Itinerari Turistici</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .welcome-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+        }
+        .user-info {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .user-info h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .user-info p {
+            margin: 5px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .logout-button {
+            background-color: #f44336;
+        }
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Itinerari Turistici</h1>
+
+        <div class="welcome-message">
+            Benvenuto, <strong>{{ nome }}</strong>! Sei ora nella pagina principale.
+        </div>
+
+        <div class="user-info">
+            <h2>Le tue informazioni</h2>
+            <p><strong>Username:</strong> {{ username }}</p>
+            <p><strong>Nome:</strong> {{ nome }}</p>
+        </div>
+
+        <div>
+            <a href="#" class="button">Esplora Itinerari</a>
+            <a href="#" class="button">Le mie Prenotazioni</a>
+            <a href="{% url 'benvenuto' %}" class="button logout-button">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
