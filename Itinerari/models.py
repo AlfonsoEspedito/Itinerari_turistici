@@ -65,13 +65,7 @@ class Itinerario(models.Model):
     def __str__(self):
         return self.titolo
 
-class Feedback(models.Model):
 
-    Id_feedback = models.IntegerField(primary_key=True)
-    valutazione = models.IntegerField()
-    commento = models.CharField(max_length=100, null=True)
-    data = models.DateField(null=True)
-    turista = models.ForeignKey(Turista, on_delete=models.CASCADE)
 
 class Prenotazione(models.Model):
 
