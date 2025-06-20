@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Area Amministratore</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .menu-item {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .menu-item:hover {
+            background-color: #45a049;
+        }
+        .logout-btn {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 8px 15px;
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Area Amministratore</h1>
+
+        <div class="welcome-message">
+            Benvenuto, <strong>{{ nome }}</strong>!
+        </div>
+
+        <div class="menu">
+            <a href="{% url 'benvenuto' %}" class="menu-item">Logout</a>
+        </div>
+
+        <h2>Crea Nuovo Itinerario</h2>
+
+        {% if error_message %}
+        <div class="error">{{ error_message }}</div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="success" style="color: green; text-align: center; margin-bottom: 15px;">
+            {{ success_message }}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'principale_amministratore' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="titolo">Titolo:</label>
+                <input type="text" id="titolo" name="titolo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descrizione">Descrizione:</label>
+                <textarea id="descrizione" name="descrizione" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="durata">Durata:</label>
+                <input type="text" id="durata" name="durata" required>
+            </div>
+
+            <div class="form-group">
+                <label for="maxpartecipanti">Numero Massimo di Partecipanti:</label>
+                <input type="number" id="maxpartecipanti" name="maxpartecipanti" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tema">Tema:</label>
+                <input type="text" id="tema" name="tema" required>
+            </div>
+
+            <div class="form-group">
+                <label for="guida">Assegna Guida:</label>
+                <select id="guida" name="guida" required>
+                    <option value="">Seleziona una guida</option>
+                    {% for g in guide %}
+                    <option value="{{ g.username }}">{{ g.nome }} {{ g.cognome }} ({{ g.username }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="submit-btn">Crea Itinerario</button>
+        </form>
+    </div>
+</body>
+</html>

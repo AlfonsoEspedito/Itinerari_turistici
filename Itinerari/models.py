@@ -1,8 +1,12 @@
 from django.db import models
+from django.utils import timezone
 
 class Lingua(models.Model):
 
     nome = models.CharField(max_length=100, primary_key=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Amministratore(models.Model):
@@ -23,6 +27,9 @@ class Turista(models.Model):
     email = models.EmailField(max_length=100, null=True,unique=True)
     nazionalita = models.CharField(max_length=100, null=True)
 
+    def __str__(self):
+        return self.username
+
 class Tappa(models.Model):
 
     ID_tappa=models.CharField(primary_key=True)
@@ -41,16 +48,22 @@ class Guida(models.Model):
     abilitazione = models.CharField(max_length=100,null=True)
     lingua = models.ForeignKey(Lingua, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.username
+
 class Itinerario(models.Model):
 
-    Id_itinerario = models.CharField(primary_key=True)
+    id_itinerario = models.AutoField(primary_key=True)
     titolo = models.CharField(max_length=100, null=True)
     descrizione = models.CharField(max_length=100, null=True)
     durata = models.CharField(max_length=100, null=True)
     maxpartecipanti = models.IntegerField()
     tema = models.CharField(max_length=100, null=True)
     stato = models.BooleanField()
+    guida = models.ForeignKey(Guida, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.titolo
 
 class Feedback(models.Model):
 
@@ -60,21 +73,9 @@ class Feedback(models.Model):
     data = models.DateField(null=True)
     turista = models.ForeignKey(Turista, on_delete=models.CASCADE)
 
-class Visita(models.Model):
-
-    Id_visita = models.IntegerField(primary_key=True)
-    data = models.DateField()
-    oraInizio = models.DateField()
-    oraFine = models.DateField()
-    puntoIncontro = models.CharField(max_length=100, null=True)
-    guida = models.ForeignKey(Guida, on_delete=models.CASCADE)
-    stato = models.BooleanField()
-    numpersone = models.IntegerField()
-    descrizione = models.CharField(max_length=100, null=True)
-
-
 class Prenotazione(models.Model):
 
-    Id_prenotazione = models.IntegerField(primary_key=True)
+    Id_prenotazione = models.AutoField(primary_key=True)
     turista = models.ForeignKey(Turista, on_delete=models.CASCADE)
-    visita = models.ForeignKey(Visita, on_delete=models.CASCADE)
+    itinerario = models.ForeignKey(Itinerario, on_delete=models.CASCADE, null=True)
+    data_prenotazione = models.DateTimeField(default=timezone.now)

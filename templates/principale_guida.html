@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pagina Principale - Itinerari Turistici</title>
+    <title>Area Guida</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
             background-color: #f5f5f5;
         }
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             background-color: white;
             padding: 20px;
@@ -21,48 +21,40 @@
         h1, h2 {
             text-align: center;
             color: #333;
-            margin-bottom: 20px;
         }
         .welcome-message {
-            font-size: 18px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #e8f5e9;
-            border-radius: 5px;
             text-align: center;
-        }
-        .user-info {
             margin-bottom: 30px;
-            padding: 15px;
-            background-color: #f5f5f5;
-            border-radius: 5px;
+            font-size: 18px;
         }
-        .user-info h2 {
-            margin-top: 0;
-            color: #333;
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
         }
-        .user-info p {
-            margin: 5px 0;
-        }
-        .button {
-            display: inline-block;
+        .menu-item {
+            margin: 0 10px;
+            padding: 10px 15px;
             background-color: #4CAF50;
             color: white;
-            padding: 10px 15px;
             text-decoration: none;
             border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
-            border: none;
         }
-        .button:hover {
+        .menu-item:hover {
             background-color: #45a049;
         }
-        .logout-button {
+        .logout-btn {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 8px 15px;
             background-color: #f44336;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
         }
-        .logout-button:hover {
+        .logout-btn:hover {
             background-color: #d32f2f;
         }
         .itinerari-container {
@@ -86,59 +78,44 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
-        .prenota-button {
-            width: 100%;
-            margin-top: 15px;
-        }
-        .menu-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Itinerari Turistici</h1>
+        <h1>Area Guida</h1>
 
         <div class="welcome-message">
-            Benvenuto, <strong>{{ nome }}</strong>! Sei ora nella pagina principale.
+            Benvenuto, <strong>{{ nome }}</strong>!
         </div>
 
-        <div class="user-info">
-            <h2>Le tue informazioni</h2>
-            <p><strong>Username:</strong> {{ username }}</p>
-            <p><strong>Nome:</strong> {{ nome }}</p>
+        <div class="menu">
+            <a href="{% url 'benvenuto' %}" class="menu-item">Logout</a>
         </div>
 
         <div class="itinerari-container">
-            <h2>Itinerari Disponibili</h2>
-            {% if itinerari %}
+            <h2>Itinerari Assegnati</h2>
+            {% if itinerari_assegnati %}
                 <div class="itinerari-list">
-                    {% for itinerario in itinerari %}
+                    {% for itinerario in itinerari_assegnati %}
                         <div class="itinerario-card">
                             <h3>{{ itinerario.titolo }}</h3>
                             <p><strong>Descrizione:</strong> {{ itinerario.descrizione }}</p>
                             <p><strong>Durata:</strong> {{ itinerario.durata }}</p>
                             <p><strong>Tema:</strong> {{ itinerario.tema }}</p>
                             <p><strong>Posti disponibili:</strong> {{ itinerario.maxpartecipanti }}</p>
-                            <form method="post" action="{% url 'prenota_itinerario' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="itinerario_id" value="{{ itinerario.id_itinerario }}">
-                                <button type="submit" class="button prenota-button">Prenota</button>
-                            </form>
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <p>Non ci sono itinerari disponibili al momento.</p>
+                <p style="text-align: center;">Non ci sono itinerari assegnati al momento.</p>
             {% endif %}
         </div>
 
-        <div class="menu-buttons">
-            <a href="{% url 'itinerari_prenotati' %}" class="button">I miei Itinerari Prenotati</a>
-            <a href="{% url 'benvenuto' %}" class="button logout-button">Logout</a>
+        {% if error_message %}
+        <div class="error" style="color: red; text-align: center; margin-top: 20px;">
+            {{ error_message }}
         </div>
+        {% endif %}
     </div>
 </body>
 </html>

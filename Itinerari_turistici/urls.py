@@ -26,4 +26,9 @@ urlpatterns = [
     path('login_guida/', views.login_guida, name='login_guida'),
     path('login_amministratore/', views.login_amministratore, name='login_amministratore'),
     path('principale/', views.principale, name='principale'),
+    path('principale_guida/', views.principale_guida, name='principale_guida'),
+    path('principale_amministratore/', views.principale_amministratore, name='principale_amministratore'),
+    path('prenota_itinerario/', views.prenota_itinerario, name='prenota_itinerario'),
+    path('itinerari_prenotati/', views.itinerari_prenotati, name='itinerari_prenotati'),
+    path('rimuovi_prenotazione/<int:prenotazione_id>/', views.rimuovi_prenotazione, name='rimuovi_prenotazione'),
 ]
