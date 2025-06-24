@@ -2,49 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benvenuto - Itinerari Turistici</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
             text-align: center;
-            margin-top: 50px;
         }
         h1 {
-            color: #333;
+            color: #2c3e50;
             margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 2.2rem;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
         }
         .button-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 15px;
-            max-width: 300px;
-            margin: 0 auto;
+            width: 100%;
         }
         .button {
-            background-color: #4CAF50;
+            background-color: #3498db;
             color: white;
-            padding: 12px 20px;
+            padding: 14px 20px;
             text-decoration: none;
-            border-radius: 4px;
-            width: 100%;
+            border-radius: 50px;
             font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            border: none;
+            display: block;
         }
         .button:hover {
-            background-color: #45a049;
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .button.register {
+            background-color: #2ecc71;
+        }
+        .button.register:hover {
+            background-color: #27ae60;
+        }
+        .button.tourist {
+            background-color: #3498db;
+        }
+        .button.guide {
+            background-color: #e74c3c;
+        }
+        .button.guide:hover {
+            background-color: #c0392b;
+        }
+        .button.admin {
+            background-color: #9b59b6;
+        }
+        .button.admin:hover {
+            background-color: #8e44ad;
+        }
+        .logo {
+            margin-bottom: 20px;
+            font-size: 3rem;
+            color: #3498db;
+        }
+        footer {
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <h1>Benvenuto in Itinerari Turistici</h1>
+    <div class="container">
+        <div class="logo">✈️</div>
+        <h1>Benvenuto in Itinerari Turistici</h1>
+        <p class="subtitle">Scopri e prenota i migliori itinerari turistici per la tua prossima avventura!</p>
 
-    <div class="button-container">
-        <a href="{% url 'registrazione' %}" class="button">Registrazione del turista</a>
-        <a href="{% url 'login_turista' %}" class="button">Login del turista</a>
-        <a href="{% url 'login_guida' %}" class="button">Login della guida</a>
-        <a href="{% url 'login_amministratore' %}" class="button">Login amministratore</a>
+        <div class="button-container">
+            <a href="{% url 'registrazione' %}" class="button register">Registrazione del turista</a>
+            <a href="{% url 'login_turista' %}" class="button tourist">Login del turista</a>
+            <a href="{% url 'login_guida' %}" class="button guide">Login della guida</a>
+            <a href="{% url 'login_amministratore' %}" class="button admin">Login amministratore</a>
+        </div>
+
+        <footer>
+            &copy; 2025 Itinerari Turistici - Tutti i diritti riservati
+        </footer>
     </div>
 </body>
 </html>
